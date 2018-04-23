@@ -21,4 +21,9 @@ describe 'User' do
     expect(@user2).not_to be_valid
   end
 
+  it "is invalid without an email" do
+    @user2 = User.create(:username => "Pugalicious", :name => "Charlie", :email => nil , :password => "test")
+    expect(@user2).not_to be_valid
+  end
+
 end
