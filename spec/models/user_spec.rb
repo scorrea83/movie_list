@@ -26,4 +26,10 @@ describe 'User' do
     expect(@user2).not_to be_valid
   end
 
+  it "must have unique username to be valid" do
+    @user2 = User.create(:username => "Pugalicious", :name => "Charlie", :email => "charlie@email.com" , :password => "test")
+    binding.pry
+    expect(@user2).not_to be_valid
+  end
+
 end
