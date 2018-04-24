@@ -36,4 +36,15 @@ describe 'User' do
     expect(@user2).not_to be_valid
   end
 
+  it "has many lists" do
+    @watchlist = List.create(:title => "watchlist")
+    @favorites = List.create(:title => "favorites")
+
+    @user.lists << @watchlist
+    @user.lists << @favorites
+
+    expect(@user.lists).to include(@watchlist)
+    expect(@user.lists).to include(@favorites)
+  end
+
 end
