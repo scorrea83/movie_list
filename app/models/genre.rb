@@ -1,4 +1,4 @@
 class Genre < ActiveRecord::Base
 
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
 end
