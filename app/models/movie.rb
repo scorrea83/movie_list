@@ -1,5 +1,5 @@
 class Movie < ActiveRecord::Base
 
-  validates_presence_of :title
+  validates :title, presence: true, uniqueness: true
 
 end
