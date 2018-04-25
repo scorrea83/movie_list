@@ -13,6 +13,20 @@ describe "Movie" do\
     expect(Genre.new(:title => "action")).not_to be_valid
   end
 
+  it "has many movies" do
+    @adventure = Genre.create(:title => "adventure")
+    @inception = Movie.create(title: "Inception", release_year: "2010", description: "A thief, who steals corporate secrets through the use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a CEO.")
+    @interstellar = Movie.create(title: "Interstellar", release_year: "2014", description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.")
+
+
+    @adventure.movies << @inception
+    @adventure.movies << @interstellar
+
+    expect(@adventure.movies).to include(@inception)
+    expect(@adventure.movies).to include(@interstellar)
+  end
+
+
 
 
 end
