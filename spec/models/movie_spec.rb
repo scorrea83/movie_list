@@ -43,4 +43,18 @@ describe 'Movie' do
     expect(@inception.lists).to include(@favorites)
   end
 
+  it "has many genres" do
+    @adventure = Genre.create(:title => "Adventure")
+    @scifi = Genre.create(:title => "SciFi")
+    @inception = Movie.create(attributes)
+
+    @inception.genres << @adventure
+    @inception.genres << @scifi
+
+    expect(@inception.genres).to include(@adventure)
+    expect(@inception.genres).to include(@scifi)
+  end
+
+
+
 end
