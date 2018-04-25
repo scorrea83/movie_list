@@ -9,6 +9,10 @@ describe "Movie" do\
     expect(Genre.new(:title => nil)).not_to be_valid
   end
 
+  it "is invalid without a unique title" do
+    expect(Genre.new(:title => "action")).not_to be_valid
+  end
+
 
 
 end
