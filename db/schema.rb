@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423015645) do
+ActiveRecord::Schema.define(version: 20180425045924) do
+
+  create_table "genres", force: :cascade do |t|
+    t.string "title"
+  end
 
   create_table "lists", force: :cascade do |t|
     t.string  "title"
