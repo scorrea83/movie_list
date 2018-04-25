@@ -11,6 +11,7 @@ describe 'Movie' do
 
   let(:missing_title) { attributes.except(:title) }
   let(:missing_description) { attributes.except(:description) }
+  let(:missing_release_year) { attributes.except(:release_year) }
 
   it "is invalid without a title" do
     expect(Movie.new(missing_title)).not_to be_valid
@@ -24,6 +25,10 @@ describe 'Movie' do
 
   it "is invalid without a description" do
     expect(Movie.new(missing_description)).not_to be_valid
+  end
+
+  it "is invalid without a release year" do
+    expect(Movie.new(missing_release_year)).not_to be_valid
   end
 
 end
