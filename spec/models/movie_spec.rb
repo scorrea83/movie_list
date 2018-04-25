@@ -10,17 +10,20 @@ describe 'Movie' do
   end
 
   let(:missing_title) { attributes.except(:title) }
+  let(:missing_description) { attributes.except(:description) }
 
   it "is invalid without a title" do
     expect(Movie.new(missing_title)).not_to be_valid
   end
-  
+
   it "is invalid with title that already exists" do
     @inception = Movie.create(attributes)
     @movie = Movie.new(attributes)
     expect(@movie).not_to be_valid
   end
 
-
+  it "is invalid without a description" do
+    expect(Movie.new(missing_description)).not_to be_valid
+  end
 
 end
