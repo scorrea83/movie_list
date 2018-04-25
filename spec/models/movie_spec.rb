@@ -31,4 +31,16 @@ describe 'Movie' do
     expect(Movie.new(missing_release_year)).not_to be_valid
   end
 
+  it "has many lists" do
+    @watchlist = List.create(:title => "watchlist")
+    @favorites = List.create(:title => "favorites")
+    @inception = Movie.create(attributes)
+
+    @inception.lists << @watchlist
+    @inception.lists << @favorites
+
+    expect(@inception.lists).to include(@watchlist)
+    expect(@inception.lists).to include(@favorites)
+  end
+
 end
