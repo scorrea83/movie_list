@@ -14,6 +14,12 @@ describe 'Movie' do
   it "is invalid without a title" do
     expect(Movie.new(missing_title)).not_to be_valid
   end
+  
+  it "is invalid with title that already exists" do
+    @inception = Movie.create(attributes)
+    @movie = Movie.new(attributes)
+    expect(@movie).not_to be_valid
+  end
 
 
 
