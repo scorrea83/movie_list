@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Movie" do\
+describe "Genre" do
   before do
     @genre = Genre.create(:title => "action")
   end
