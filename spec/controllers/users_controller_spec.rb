@@ -17,7 +17,11 @@ describe 'UsersController' do
       expect(last_response.status).to eq(200)
      end
 
-    # displays user show page if signup successful
+    it 'directs user to /user/show page upon successful signup' do
+      post '/users/signup', params
+      user = User.last
+      expect(last_response.location).to include("/users/#{user.id}")
+    end
     # doesn't allow user to signup without username
     # doesn't allow user to signup without email
     # doesn't allow user to signup without password
