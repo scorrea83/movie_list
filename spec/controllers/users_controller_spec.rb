@@ -28,9 +28,20 @@ describe 'UsersController' do
       expect(last_response.location).to include("users/signup")
     end
 
-    # doesn't allow user to signup without email
-    # doesn't allow user to signup without password
-    # doesn't allow user to signup without name
+    it "doesn't allow user to signup without :email" do
+      post '/users/signup', params.except(:email)
+      expect(last_response.location).to include("users/signup")
+    end
+
+    it "doesn't allow user to signup without :password" do
+      post '/users/signup', params.except(:password)
+      expect(last_response.location).to include("users/signup")
+    end
+
+    it "doesn't allow user to signup without :name" do
+      post '/users/signup', params.except(:name)
+      expect(last_response.location).to include("users/signup")
+    end
   end
 
 end
