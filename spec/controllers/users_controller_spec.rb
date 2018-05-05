@@ -42,6 +42,16 @@ describe 'UsersController' do
       post '/users/signup', params.except(:name)
       expect(last_response.location).to include("users/signup")
     end
+
+    it "doesn't let a logged in user view the signup page" do
+      post '/users/signup', params
+      user = User.last
+      session = {}
+      session[:user_id] = user.id
+      get '/users/signup'
+      expect(last_response.location).to include("/users/#{user.id}")
+    end
+
   end
 
 end
