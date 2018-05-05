@@ -6,11 +6,15 @@ class UsersController < ApplicationController
 
   post '/users/signup' do
     @user = User.new(params)
-    @user.valid?
-    @user.save
-    session[:user_id] = @user.id
-    redirect "/users/#{@user.id}"
+    if @user.valid?
+      @user.save
+      session[:user_id] = @user.id
+      redirect "/users/#{@user.id}"
+    else
+      redirect "/users/signup"
+    end
   end
+
 
 
 end
