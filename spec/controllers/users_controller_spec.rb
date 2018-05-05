@@ -54,4 +54,26 @@ describe 'UsersController' do
 
   end
 
+  describe 'login' do
+
+    let (:params) do
+      { :username => "Pugalicious",
+        :password => "test"
+      }
+    end
+
+    it "loads page successfully" do
+      get '/users/login'
+      expect(last_response.status).to eq(200)
+    end
+
+    # loads user show page upon succesful login
+    # doesn't allow login without username
+    # doesn't allow login without password
+    # doesn't let logged in user view login page
+
+
+
+  end
+
 end
