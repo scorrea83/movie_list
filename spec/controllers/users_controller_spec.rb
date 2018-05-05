@@ -22,7 +22,12 @@ describe 'UsersController' do
       user = User.last
       expect(last_response.location).to include("/users/#{user.id}")
     end
-    # doesn't allow user to signup without username
+
+    it "doesn't allow user to signup without username" do
+      post '/users/signup', params.except(:username)
+      expect(last_response.location).to include("users/signup")
+    end
+
     # doesn't allow user to signup without email
     # doesn't allow user to signup without password
     # doesn't allow user to signup without name
