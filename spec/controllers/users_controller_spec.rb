@@ -91,7 +91,13 @@ describe 'UsersController' do
       post '/users/login', params.except(:password)
       expect(last_response.location).to include("users/login")
     end
-    # doesn't let logged in user view login page
+
+    it "doesn't display login page if user already logged in" do
+      user = User.create(attributes)
+      post '/users/login', params
+      get '/users/login'
+      expect(last_response.location).to include("/users/#{user.id}")
+    end
 
 
 
