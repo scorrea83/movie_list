@@ -55,6 +55,13 @@ describe 'UsersController' do
   end
 
   describe 'login' do
+    let (:attributes) do
+      { :name => "Charlie",
+        :username => "Pugalicious",
+        :email => "charlie@email.com",
+        :password => "test"
+      }
+    end
 
     let (:params) do
       { :username => "Pugalicious",
@@ -67,7 +74,12 @@ describe 'UsersController' do
       expect(last_response.status).to eq(200)
     end
 
-    # loads user show page upon succesful login
+    it "loads user show page upon successful login" do
+      user = User.create(attributes)
+      post '/users/login', params
+      expect(last_response.location).to include("/users/#{user.id}")
+    end
+
     # doesn't allow login without username
     # doesn't allow login without password
     # doesn't let logged in user view login page
