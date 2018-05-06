@@ -98,8 +98,32 @@ describe 'UsersController' do
       get '/users/login'
       expect(last_response.location).to include("/users/#{user.id}")
     end
+  end
 
+  describe "Logout" do
 
+    let (:attributes) do
+      { :name => "Charlie",
+        :username => "Pugalicious",
+        :email => "charlie@email.com",
+        :password => "test"
+      }
+    end
+
+    let (:params) do
+      { :username => "Pugalicious",
+        :password => "test"
+      }
+    end
+
+    context "given user logged in" do
+      it "lets user log out"
+
+    end
+
+    context "given user not logged in" do
+      it "doesn't let user logout"
+    end
 
   end
 
