@@ -80,7 +80,11 @@ describe 'UsersController' do
       expect(last_response.location).to include("/users/#{user.id}")
     end
 
-    # doesn't allow login without username
+    it "is not allowed without username" do
+      user = User.create(attributes)
+      post '/users/login', params.except(:username)
+      expect(last_response.location).to include("users/login")
+    end
     # doesn't allow login without password
     # doesn't let logged in user view login page
 
