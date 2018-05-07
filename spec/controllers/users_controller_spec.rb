@@ -117,7 +117,13 @@ describe 'UsersController' do
     end
 
     context "given user logged in" do
-      it "lets user log out"
+      it "lets user log out" do
+        user = User.create(attributes)
+        post '/users/login', params
+        get '/users/logout'
+        expect(last_response.location). to include("/users/login")
+        expect(last_request.env['rack.session']['user_id']).to be_nil
+      end
 
     end
 
