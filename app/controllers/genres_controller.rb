@@ -1,7 +1,11 @@
 class GenresController < ApplicationController
 
   get '/genres' do
-    erb :'genres/genres'
+    if logged_in?
+      erb :'genres/genres'
+    else
+      redirect '/users/login'
+    end
   end
 
 
