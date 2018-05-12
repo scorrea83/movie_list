@@ -1,0 +1,10 @@
+<h1>Movie Genres</h1>
+
+<% Genre.all.order(:title).each do |genre|%>
+  <div>
+    <ul>
+      <li><a href="/genres/<%=genre.id%>"><%=genre.title%></a></li>
+    <ul>
+  </div>
+
+<% end %>
