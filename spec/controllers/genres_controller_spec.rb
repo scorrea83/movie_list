@@ -38,9 +38,37 @@ describe 'GenresController' do
         get '/genres'
         expect(last_response.location).to include('/users/login')
       end
+    end
+  end
 
+  describe "show action" do
+
+    context "user logged in" do
+
+      before  do
+        @genre = Genre.create(:title => "Action")
+        @movie = Movie.create(:title => "Die Hard", :description => "John McClane, officer of the NYPD, tries to save his wife Holly Gennaro and several others that were taken hostage by German terrorist Hans Gruber during a Christmas party at the Nakatomi Plaza in Los Angeles.", :release_year => "1988")
+        @genre.movies << @movie
+        @user1 = User.create(:name => "Charlie", :username => "Pugalicious", :email => "charlie@email.com", :password => "test")
+        visit '/users/login'
+        fill_in(:username, :with => "Pugalicious")
+        fill_in(:password, :with => "test")
+        click_button 'Log In'
+      end
+
+      it "lets user view single genre page"
+      #expect page to include @genre.title
+
+      it "lists all genre movies"
+      #expect page to include @movie.title
+
+      it "contains links to each movie's show page"
+      #expect page to include link to "/movies/#{@movie.id}"
     end
 
+    context "user not logged in" do
+      it "doesn't let user view single genre show page"
+    end
   end
 
 end
