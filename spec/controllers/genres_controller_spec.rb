@@ -56,14 +56,24 @@ describe 'GenresController' do
         click_button 'Log In'
       end
 
-      it "lets user view single genre page"
-      #expect page to include @genre.title
+      it "lets user view single genre page" do
+        visit "/genres/#{@genre.id}"
 
-      it "lists all genre movies"
-      #expect page to include @movie.title
+        expect(page.body).to include(@genre.title)
+      end
 
-      it "contains links to each movie's show page"
-      #expect page to include link to "/movies/#{@movie.id}"
+      it "lists all genre movies" do
+        visit "/genres/#{@genre.id}"
+
+        expect(page.body).to include(@movie.title)
+      end
+
+      it "contains links to each movie's show page" do
+        visit "/genres/#{@genre.id}"
+
+        expect(page).to have_link("#{@movie.title}", href: "/movies/#{@movie.id}")
+      end
+
     end
 
     context "user not logged in" do
