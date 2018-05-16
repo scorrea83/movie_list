@@ -1,0 +1,15 @@
+<h1><%= @genre.title %> Genre Page</h1>
+
+<h3><%= @genre.title %> Movies:</h3>
+
+<table>
+  <tbody>
+
+    <% @genre.movies.each do |movie| %>
+      <tr>
+        <td><a href="/movies/<%=movie.id%>"><%= movie.title %></a></td>
+      </tr>
+    <% end %>
+
+  </tbody>
+<table>

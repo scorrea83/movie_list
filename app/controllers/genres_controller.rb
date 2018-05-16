@@ -8,5 +8,14 @@ class GenresController < ApplicationController
     end
   end
 
+  get '/genres/:id' do
+    if logged_in?
+      @genre = Genre.find(params[:id])
+      erb :'genres/show_genre'
+    else
+      redirect '/users/login'
+    end
+  end
+
 
 end
