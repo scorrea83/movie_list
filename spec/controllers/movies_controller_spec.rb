@@ -24,8 +24,8 @@ describe 'MoviesController' do
 
       it "index contains links to each movie" do
         visit '/movies'
-        expect(page.body).to have_link("#{@movie1.title}", href: "/movies/#{@movie1.id}")
-        expect(page.body).to have_link("#{@movie2.title}", href: "/movies/#{@movie2.id}")
+        expect(page).to have_link("#{@movie1.title}", href: "/movies/#{@movie1.id}")
+        expect(page).to have_link("#{@movie2.title}", href: "/movies/#{@movie2.id}")
       end
 
     end
