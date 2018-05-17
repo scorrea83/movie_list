@@ -1,0 +1,10 @@
+<h1>List of Movies</h1>
+
+<% Movie.all.order(:title).each do |movie|%>
+  <div>
+    <ol>
+      <li><a href="/movies/<%=movie.id%>"><%=movie.title%></a></li>
+    <ol>
+  </div>
+
+<% end %>
