@@ -77,7 +77,14 @@ describe 'GenresController' do
     end
 
     context "user not logged in" do
-      it "doesn't let user view single genre show page"
+      before do
+        @genre = Genre.create(:title => "Action")
+      end
+
+      it "doesn't let user view single genre show page" do
+        get "/genres/#{@genre.id}"
+        expect(last_response.location).to include('/users/login')
+      end
     end
   end
 
