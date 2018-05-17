@@ -6,4 +6,5 @@ end
 
 use UsersController
 use GenresController
+use MoviesController
 run ApplicationController
