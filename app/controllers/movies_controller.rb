@@ -1,7 +1,11 @@
 class MoviesController < ApplicationController
 
   get '/movies' do
-    erb :'movies/movies'
+    if logged_in?
+      erb :'movies/movies'
+    else
+      redirect '/users/login'
+    end
   end
 
 end
