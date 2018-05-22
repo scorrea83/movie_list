@@ -31,7 +31,10 @@ describe 'MoviesController' do
     end
 
     context "user not logged in" do
-      it "doesn't let user view movies index page"
+      it "doesn't let user view movies index page" do
+        get '/movies'
+        expect(last_response.location).to include('/users/login')
+      end
     end
 
   end
