@@ -44,7 +44,7 @@ describe 'MoviesController' do
     context "user logged in" do
       before  do
         @genre = Genre.create(:title => "Action")
-        @movie = Movie.create(:title => "Die Hard", :description => "John McClane, officer of the NYPD, tries to save his wife Holly Gennaro and several others that were taken hostage by German terrorist Hans Gruber during a Christmas party at the Nakatomi Plaza in Los Angeles.", :release_year => "1988")
+        @movie = Movie.create(:title => "Die Hard", :description => "John McClane, officer of the NYPD, tries to save his wife Holly Gennaro and several others that were taken hostage by German terrorist Hans Gruber during a Christmas party at the Nakatomi Plaza in Los Angeles.", :release_year => 1988)
         @genre.movies << @movie
         @user = User.create(:name => "Charlie", :username => "Pugalicious", :email => "charlie@email.com", :password => "test")
         visit '/users/login'
@@ -53,12 +53,30 @@ describe 'MoviesController' do
         click_button 'Log In'
       end
 
-      it "lets user view movie show page"
-      it "displays @movie.description"
-      it "displays @movie.release_year"
-      it "contains link to edit page"
-      it "displays movie genres"
+      it "lets user view movie show page" do
+        visit "/movies/#{@movie.id}"
+        expect(page.body).to include(@movie.title)
+      end
 
+      it "displays a movie's description" do
+        visit "/movies/#{@movie.id}"
+        expect(page.body).to include(@movie.description)
+      end
+
+      it "displays a movie's release_year" do
+        visit "/movies/#{@movie.id}"
+        expect(page.body).to include("#{@movie.release_year}")
+      end
+
+      it "contains link to movie's edit page" do
+        visit "/movies/#{@movie.id}"
+        expect(page).to have_link("Edit Movie Info", href: "/movies/#{@movie.id}/edit")
+      end
+
+      it "displays movie genres" do
+        visit "/movies/#{@movie.id}"
+        expect(page.body).to include(@genre.title)
+      end
     end
 
     context "user not logged in" do
