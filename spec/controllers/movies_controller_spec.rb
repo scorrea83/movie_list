@@ -80,8 +80,15 @@ describe 'MoviesController' do
     end
 
     context "user not logged in" do
+      before do
+        @movie = Movie.create(:title => "Die Hard", :description => "John McClane, officer of the NYPD, tries to save his wife Holly Gennaro and several others that were taken hostage by German terrorist Hans Gruber during a Christmas party at the Nakatomi Plaza in Los Angeles.", :release_year => 1988)
+      end
 
-      it "doesn't let user view movies index page"
+      it "doesn't let user view movies index page" do
+        get "/movies/#{@movie.id}"
+        expect(last_response.location).to include('/users/login')
+
+      end
 
     end
   end
