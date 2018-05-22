@@ -39,5 +39,33 @@ describe 'MoviesController' do
 
   end
 
+  describe "show action" do
+
+    context "user logged in" do
+      before  do
+        @genre = Genre.create(:title => "Action")
+        @movie = Movie.create(:title => "Die Hard", :description => "John McClane, officer of the NYPD, tries to save his wife Holly Gennaro and several others that were taken hostage by German terrorist Hans Gruber during a Christmas party at the Nakatomi Plaza in Los Angeles.", :release_year => "1988")
+        @genre.movies << @movie
+        @user = User.create(:name => "Charlie", :username => "Pugalicious", :email => "charlie@email.com", :password => "test")
+        visit '/users/login'
+        fill_in(:username, :with => "Pugalicious")
+        fill_in(:password, :with => "test")
+        click_button 'Log In'
+      end
+
+      it "lets user view movie show page"
+      it "displays @movie.description"
+      it "displays @movie.release_year"
+      it "contains link to edit page"
+      it "displays movie genres"
+
+    end
+
+    context "user not logged in" do
+
+      it "doesn't let user view movies index page"
+
+    end
+  end
 
 end
