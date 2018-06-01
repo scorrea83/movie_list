@@ -1,0 +1,18 @@
+<h1>Add A New Movie</h1>
+<h3>Unable to find a movie to add to your list?</h3>
+<h3>Please fill out all fields below to add your movie to Movie Lister:</h3>
+
+<form method="POST" action="/movies">
+  <label for="title">Movie Title:</label><br>
+  <input type="text" name="movie[title]" id="title">
+  <br>
+  <label for="release_year">Movie Release Year:</label><br>
+  <input type="text" name="movie[release_year]" id="release_year">
+  <br>
+  <label for="description">Movie Description:</label><br>
+  <textarea name="movie[description]" id="description"></textarea>
+  <br>
+  <button type="submit">Create Movie</button>
+
+</form>
+
