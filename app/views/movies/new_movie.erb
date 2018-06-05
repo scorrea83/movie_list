@@ -9,6 +9,14 @@
   <label for="release_year">Movie Release Year:</label><br>
   <input type="text" name="movie[release_year]" id="release_year">
   <br>
+  <label>Movie Genre(s): </label><br>
+  <p><i>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</i></p>
+  <select name="movie[genre_ids][]" size="4" multiple>
+    <% Genre.all.order(:title).each do |genre|%>
+      <option id="<%=genre.title%>" value="<%=genre.id%>"> <%=genre.title%> </option>
+    <% end %>
+  </select>
+  <br></br>
   <label for="description">Movie Description:</label><br>
   <textarea name="movie[description]" id="description"></textarea>
   <br>
