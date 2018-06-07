@@ -45,7 +45,7 @@ describe "Create A Movie", type: :feature do
     it "doesn't allow user to create new movie" do
       visit '/movies/new'
       click_button "Create Movie"
-      expect(page.body).to include("Add A New Movie")
+      expect(page.current_path).to eq("/movies/new")
     end
   end
 

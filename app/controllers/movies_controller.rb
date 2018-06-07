@@ -12,13 +12,13 @@ class MoviesController < ApplicationController
       erb :'movies/new_movie'
   end
 
-  post '/movies'do
+  post '/movies' do
     @movie = Movie.new(params[:movie])
     if @movie.valid?
       @movie.save
       redirect "/movies/#{@movie.id}"
     else
-      erb :'/movies/new'
+      redirect '/movies/new'
     end
   end
 
