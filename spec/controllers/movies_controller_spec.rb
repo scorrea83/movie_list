@@ -112,6 +112,21 @@ describe 'MoviesController' do
         expect(page).to have_select('movie[genre_ids][]', with_options: ['Action', 'Horror', 'Comedy'])
         expect(page).to have_css("option", :count => 3)
       end
+
+      it "doesn't allow user to create already existing movie" do
+        Movie.create(:title => "Die Hard", :description => "John McClane, officer of the NYPD, tries to save his wife Holly Gennaro and several others that were taken hostage by German terrorist Hans Gruber during a Christmas party at the Nakatomi Plaza in Los Angeles.", :release_year => 1988)
+
+        visit '/movies/new'
+        fill_in('title', with: "Die Hard")
+        fill_in('description', with: "John McClane, officer of the NYPD, tries to save his wife Holly Gennaro and several others that weretaken   hostage by German terrorist Hans Gruber during a Christmas party at the Nakatomi Plaza in Los Angeles.")
+        fill_in('release_year', with: 1988)
+        select('Action', from: 'movie[genre_ids][]')
+
+        click_button "Create Movie"
+
+        expect(Movie.all.count).to eq(1)
+        expect(page.current_path).to eq("/movies/new")
+      end
     end
 
     context "user not logged in" do
