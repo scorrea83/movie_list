@@ -93,4 +93,33 @@ describe 'MoviesController' do
     end
   end
 
+  describe "new action" do
+
+    context "user logged in" do
+      before  do
+        @genre1 = Genre.create(:title => "Action")
+        @genre2 = Genre.create(:title => "Horror")
+        @genre3 = Genre.create(:title => "Comedy")
+        @user = User.create(:name => "Charlie", :username => "Pugalicious", :email => "charlie@email.com", :password => "test")
+        visit '/users/login'
+        fill_in(:username, :with => "Pugalicious")
+        fill_in(:password, :with => "test")
+        click_button 'Log In'
+      end
+
+      it "page displays genres dropdown list" do
+        visit '/movies/new'
+        expect(page).to have_select('movie[genre_ids][]', with_options: ['Action', 'Horror', 'Comedy'])
+        expect(page).to have_css("option", :count => 3)
+      end
+    end
+
+    context "user not logged in" do
+      it "doesn't allow user to view new movie page" do
+        get '/movies/new'
+        expect(last_response.location).to include('/users/login')
+      end
+    end
+  end
+
 end
