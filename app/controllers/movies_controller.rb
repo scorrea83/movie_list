@@ -9,7 +9,11 @@ class MoviesController < ApplicationController
   end
 
   get '/movies/new' do
+    if logged_in?
       erb :'movies/new_movie'
+    else
+      redirect '/users/login'
+    end
   end
 
   post '/movies' do
