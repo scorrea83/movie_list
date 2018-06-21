@@ -68,7 +68,16 @@ describe "Edit A Movie", type: :feature do
         expect(movie.genre_ids).to include(@genre1.id, @genre2.id)
 			end
 
-      it "doesn't allow user to edit title to that of another existing movie"
+      it "doesn't allow user to edit title to that of another existing movie" do
+        @movie2 = Movie.create(:title => "Die Hard 2", :description => "John McClane kicks terrorist butt, while on holiday.", :release_year => 1988)
+        @movie2.genres << @genre1
+        fill_in('title', with: "Die Hard 2")
+        click_button "Save Changes"
+        movie = Movie.find(@movie.id)
+
+        expect(movie.title).to eq("Die Hard")
+        expect(page.current_path).to eq("/movies/#{@movie.id}/edit")
+      end
 
     end
 
