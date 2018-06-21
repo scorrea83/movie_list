@@ -58,7 +58,16 @@ describe "Edit A Movie", type: :feature do
         expect(page.current_path).to eq("/movies/#{@movie.id}/edit")
       end
 
-      it "doesn't edit movie without genre(s) selected"
+      it "doesn't edit movie without genre(s) selected" do
+        unselect('Suspense', from: 'movie[genre_ids][]')
+        unselect('Action', from: 'movie[genre_ids][]')
+        click_button "Save Changes"
+        movie = Movie.find(@movie.id)
+
+        expect(page.current_path).to eq("/movies/#{@movie.id}/edit")
+        expect(movie.genre_ids).to include(@genre1.id, @genre2.id)
+			end
+
       it "doesn't allow user to edit title to that of another existing movie"
 
     end
