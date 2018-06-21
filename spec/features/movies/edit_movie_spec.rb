@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "Edit A Movie", type: :feature do
   context "with user logged in" do
     before do
+    @user = User.create(:name => "Charlie", :username => "Pugalicious", :email => "charlie@email.com", :password => "test")
     @genre1 = Genre.create(:title => "Action")
     @genre2 = Genre.create(:title => "Suspense")
     @movie = Movie.create(:title => "Die Hard", :description => "John McClane, officer of the NYPD, tries to save his wife Holly Gennaro and several others that were taken hostage by German terrorist Hans Gruber during a Christmas party at the Nakatomi Plaza in Los Angeles.", :release_year => 1988)
@@ -42,8 +43,22 @@ describe "Edit A Movie", type: :feature do
     end
 
     context "given failure" do
-      it "doesn't edit movie with blank features"
-			it "doesn't edit movie without genre(s) selected"
+      before do
+        visit "/movies/#{@movie.id}/edit"
+      end
+
+      it "doesn't edit movie with blank features" do
+        fill_in('title', with: "")
+        fill_in('description', with: "")
+        click_button "Save Changes"
+        movie = Movie.find(@movie.id)
+
+        expect(movie.title).to eq(@movie.title)
+        expect(movie.description).to eq(@movie.description)
+        expect(page.current_path).to eq("/movies/#{@movie.id}/edit")
+      end
+
+      it "doesn't edit movie without genre(s) selected"
       it "doesn't allow user to edit title to that of another existing movie"
 
     end
