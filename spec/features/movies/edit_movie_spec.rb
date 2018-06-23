@@ -84,7 +84,12 @@ describe "Edit A Movie", type: :feature do
   end
 
   context "with user not logged in" do
-    it "doesn't allow user to view edit page"
+    it "doesn't allow user to view edit page" do
+      @movie = Movie.create(:title => "Die Hard", :description => "John McClane, officer of the NYPD, tries to save his wife Holly Gennaro and several others that were taken hostage by German terrorist Hans Gruber during a Christmas party at the Nakatomi Plaza in Los Angeles.", :release_year => 1988)
+        visit "/movies/#{@movie.id}/edit"
+
+        expect(page.current_path).to include('/users/login')
+    end
 
   end
 
