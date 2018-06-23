@@ -44,5 +44,13 @@ class MoviesController < ApplicationController
     end
   end
 
+  patch '/movies/:id' do
+    @movie = Movie.find(params[:id])
+    if params[:movie][:genre_ids] && @movie.update(params[:movie])
+      redirect "/movies/#{@movie.id}"
+    else
+      redirect "/movies/#{@movie.id}/edit"
+    end
+  end
 
 end
