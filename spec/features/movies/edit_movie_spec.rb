@@ -27,6 +27,7 @@ describe "Edit A Movie", type: :feature do
         movie = Movie.find(@movie.id)
 
         expect(movie.title).to eq("Die Hard, A Christmas Story")
+        expect(page).to have_content("Successfully Updated Movie Information")
         expect(page.current_path).to eq("/movies/#{movie.id}")
       end
 
@@ -37,6 +38,7 @@ describe "Edit A Movie", type: :feature do
         movie = Movie.find(@movie.id)
 
         expect(page.current_path).to eq("/movies/#{movie.id}")
+        expect(page).to have_content("Successfully Updated Movie Information")
         expect(movie.genre_ids).to include(@genre1.id, @genre3.id)
         expect(movie.genre_ids).to_not include(@genre2.id)
       end
@@ -55,6 +57,8 @@ describe "Edit A Movie", type: :feature do
 
         expect(movie.title).to eq(@movie.title)
         expect(movie.description).to eq(@movie.description)
+        expect(page).to have_content("Title can't be blank")
+        expect(page).to have_content("Description can't be blank")
         expect(page.current_path).to eq("/movies/#{@movie.id}/edit")
       end
 
@@ -65,6 +69,7 @@ describe "Edit A Movie", type: :feature do
         movie = Movie.find(@movie.id)
 
         expect(page.current_path).to eq("/movies/#{@movie.id}/edit")
+        expect(page).to have_content("You must select at least 1 movie genre from list.")
         expect(movie.genre_ids).to include(@genre1.id, @genre2.id)
 			end
 
@@ -76,6 +81,7 @@ describe "Edit A Movie", type: :feature do
         movie = Movie.find(@movie.id)
 
         expect(movie.title).to eq("Die Hard")
+        expect(page).to have_content("Title has already been taken")
         expect(page.current_path).to eq("/movies/#{@movie.id}/edit")
       end
 
