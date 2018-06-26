@@ -46,9 +46,13 @@ class MoviesController < ApplicationController
 
   patch '/movies/:id' do
     @movie = Movie.find(params[:id])
-    if params[:movie][:genre_ids] && @movie.update(params[:movie])
-      redirect "/movies/#{@movie.id}"
+    movie = Movie.find(params[:id])
+    if params[:movie][:genre_ids] && movie.update(params[:movie])
+      flash[:message] = "Successfully Updated Movie Information"
+      redirect "/movies/#{movie.id}"
     else
+      flash[:message] = "You must select at least 1 movie genre from list." if !params[:movie][:genre_ids]
+      flash[:errors] = movie.errors.full_messages
       redirect "/movies/#{@movie.id}/edit"
     end
   end
