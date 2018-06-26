@@ -1,4 +1,10 @@
 <h1><%= @movie.title %> </h1>
+
+<% if flash[:message] %>
+  <h3> <%= flash[:message] %> </h3>
+  <br>
+<% end %>
+
 <h4>Release Year: <%= @movie.release_year %> </h4>
 <h4>Genres: <%= @movie.genres.map(&:title).join(", ") %> </h4>
 <h3>Description: <%= @movie.description %> </h3>
