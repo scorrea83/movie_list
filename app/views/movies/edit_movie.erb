@@ -1,0 +1,43 @@
+<h1>Edit Movie</h1>
+
+<% if flash[:message] %>
+  <h3> <%= flash[:message] %> </h3>
+  <br>
+<% end %>
+
+<% if flash[:errors] %>
+  <h4> The following errors occurred when submitting your information:</h4>
+  <ul>
+    <% flash[:errors].each do |error| %>
+      <li> <%= error%> </li>
+    <% end %>
+  </ul>
+<br>
+<% end %>
+
+<form method="POST" action="/movies/<%=@movie.id%>">
+  <input type="hidden" name="_method" value="patch">
+  <label for="title">Movie Title:</label><br>
+  <input type="text" name="movie[title]" id="title" value="<%=@movie.title%>">
+  <br>
+  <label for="release_year">Movie Release Year:</label><br>
+  <input type="text" name="movie[release_year]" id="release_year" value="<%=@movie.release_year%>" >
+  <br>
+  <label>Movie Genre(s): </label><br>
+  <p><i>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</i></p>
+  <select name="movie[genre_ids][]" size="4" multiple>
+    <% Genre.all.order(:title).each do |genre|%>
+      <% if @movie.genre_ids.include?(genre.id)%>
+        <option id="<%=genre.title%>" value="<%=genre.id%>" selected> <%=genre.title%> </option>
+      <% else %>
+        <option id="<%=genre.title%>" value="<%=genre.id%>"> <%=genre.title%> </option>
+      <% end %>
+    <% end %>
+  </select>
+  <br></br>
+  <label for="description">Movie Description:</label><br>
+  <textarea name="movie[description]" id="description" placeholder="Short Movie Description"> <%=@movie.description%> </textarea>
+  <br>
+  <button type="submit">Save Changes</button>
+
+</form>
