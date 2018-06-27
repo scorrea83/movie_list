@@ -133,4 +133,17 @@ describe 'UsersController' do
 
   end
 
+  describe "Show Action" do
+    context "with user logged in" do
+      it "displays all user's movie lists"
+      it "displays user specific content if user's own page"
+      it "doesn't display user specific content if viewing other user's show page"
+    end
+
+    context "with user not logged in" do
+      it "doesn't allow user to view show page"
+    end
+
+  end
+
 end
