@@ -18,10 +18,13 @@ class MoviesController < ApplicationController
 
   post '/movies' do
     @movie = Movie.new(params[:movie])
-    if @movie.valid?
+    if params[:movie][:genre_ids] && @movie.valid?
       @movie.save
+      flash[:message] = "Movie successfuly added to Movie Lister!"
       redirect "/movies/#{@movie.id}"
     else
+      flash[:message] = "You must select at least 1 movie genre from list." if !params[:movie][:genre_ids]
+      flash[:alert] = "You must fill out all information fields" if @movie.invalid?
       redirect '/movies/new'
     end
   end

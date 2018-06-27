@@ -2,6 +2,18 @@
 <h3>Unable to find a movie to add to your list?</h3>
 <h3>Please fill out all fields below to add your movie to Movie Lister:</h3>
 
+<% if flash[:message] || flash[:alert] %>
+  <h3> The following errors occurred when submitting your information:</h3>
+  <% if flash[:message] %>
+    <h4> <%= flash[:message] %> </h4>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <h4> <%= flash[:alert] %> </h4>
+  <% end %>
+
+<% end %>
+
 <form method="POST" action="/movies">
   <label for="title">Movie Title:</label><br>
   <input type="text" name="movie[title]" id="title">

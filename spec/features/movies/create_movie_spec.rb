@@ -38,6 +38,7 @@ describe "Create A Movie", type: :feature do
       expect(page.body).to include(movie.description)
       expect(page.body).to include("#{movie.release_year}")
       expect(page.body).to include(@genre1.title, @genre2.title)
+      expect(page).to have_content("Movie successfuly added to Movie Lister!")
     end
   end
 
@@ -45,7 +46,11 @@ describe "Create A Movie", type: :feature do
     it "doesn't allow user to create new movie" do
       visit '/movies/new'
       click_button "Create Movie"
+
       expect(page.current_path).to eq("/movies/new")
+      expect(page).to have_content("You must fill out all information fields")
+      expect(page).to have_content("You must select at least 1 movie genre from list.")
+
     end
   end
 
