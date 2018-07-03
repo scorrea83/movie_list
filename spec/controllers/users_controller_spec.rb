@@ -135,7 +135,25 @@ describe 'UsersController' do
 
   describe "Show Action" do
     context "with user logged in" do
-      it "displays all user's movie lists"
+     before  do
+        @user = User.create(:name => "Charlie", :username => "Pugalicious", :email => "charlie@email.com", :password => "test")
+        @lists = @user.lists.create([{title: "Summer Watch List"}, {title: "Top 10"}, {title: "Date Night"}])
+
+        visit '/users/login'
+        fill_in(:username, :with => "Pugalicious")
+        fill_in(:password, :with => "test")
+        click_button 'Log In'
+      end
+
+      it "displays all user's movie lists" do
+        visit "/users/#{@user.id}"
+
+        expect(page.current_path).to eq("/users/1")
+        expect(page.body).to include(@lists.map(&:title)[0])
+        expect(page.body).to include(@lists.map(&:title)[1])
+        expect(page.body).to include(@lists.map(&:title)[2])
+      end
+
       it "displays user specific content if user's own page"
       it "doesn't display user specific content if viewing other user's show page"
     end
