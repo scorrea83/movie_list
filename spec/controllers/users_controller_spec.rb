@@ -154,7 +154,12 @@ describe 'UsersController' do
         expect(page.body).to include(@lists.map(&:title)[2])
       end
 
-      it "displays user specific content if user's own page"
+      it "displays user specific content if user's own page" do
+        visit "/users/#{@user.id}"
+
+        expect(page).to have_content("Welcome to Movie Lister Pugalicious")
+      end
+
       it "doesn't display user specific content if viewing other user's show page"
     end
 
