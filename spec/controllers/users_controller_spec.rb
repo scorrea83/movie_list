@@ -172,7 +172,13 @@ describe 'UsersController' do
     end
 
     context "with user not logged in" do
-      it "doesn't allow user to view show page"
+      it "doesn't allow user to view show page" do
+        @user = User.create(:name => "Charlie", :username => "Pugalicious", :email => "charlie@email.com", :password => "test")
+        visit "/users/#{@user.id}"
+
+        expect(page.current_path).to eq('/users/login')
+
+      end
     end
 
   end
