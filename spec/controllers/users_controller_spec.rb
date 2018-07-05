@@ -160,7 +160,15 @@ describe 'UsersController' do
         expect(page).to have_content("Welcome to Movie Lister Pugalicious")
       end
 
-      it "doesn't display user specific content if viewing other user's show page"
+      it "doesn't display user specific content if viewing other user's show page" do
+        user2 = User.create(:name => "User", :username => "User", :email => "user@email.com", :password => "user")
+        lists = user2.lists.create([{title: "Favorites"}, {title: "Must Watch"}])
+        visit "/users/#{user2.id}"
+
+        expect(page).to have_content("Welcome to #{user2.username}'s Movie Lister Page")
+        expect(page).to have_no_content("Welcome to Movie Lister Pugalicious")
+
+      end
     end
 
     context "with user not logged in" do
