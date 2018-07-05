@@ -1,0 +1,15 @@
+<% if locals[:message] == "current_user" %>
+  <h1>Welcome to Movie Lister <%=@user.username%></h1>
+  <h4>Here are all your movie lists:</h4>
+<% else %>
+  <h1>Welcome to <%=@user.username%>'s Movie Lister Page</h1>
+  <h4>Here are all their movie lists:</h4>
+<% end %>
+
+<% @user.lists.order(:title).each do |list| %>
+  <div>
+    <a href="/lists/<%= list.id %>"> <%= list.title %> </a>
+  </div>
+<% end %>
+
+
