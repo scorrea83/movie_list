@@ -42,4 +42,15 @@ class UsersController < ApplicationController
     redirect '/users/login'
   end
 
+  get '/users/:id' do
+    @user = User.find(params[:id])
+    if logged_in? && current_user == @user
+      erb :'users/show_user', locals: {message: "current_user"}
+    elsif logged_in?
+      erb :'users/show_user'
+    else
+      redirect '/users/login'
+    end
+  end
+
 end
