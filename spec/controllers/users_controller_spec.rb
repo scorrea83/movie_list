@@ -158,6 +158,7 @@ describe 'UsersController' do
         visit "/users/#{@user.id}"
 
         expect(page).to have_content("Welcome to Movie Lister Pugalicious")
+        expect(page).to have_content("Create A New List")
       end
 
       it "doesn't display user specific content if viewing other user's show page" do
@@ -167,6 +168,7 @@ describe 'UsersController' do
 
         expect(page).to have_content("Welcome to #{user2.username}'s Movie Lister Page")
         expect(page).to have_no_content("Welcome to Movie Lister Pugalicious")
+        expect(page).to have_no_content("Create A New List")
 
       end
     end
