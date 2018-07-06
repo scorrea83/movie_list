@@ -1,5 +1,8 @@
 <% if locals[:message] == "current_user" %>
   <h1>Welcome to Movie Lister <%=@user.username%></h1>
+  <a href="/experiences/new">
+    <button>Create A New List</button>
+  </a>
   <h4>Here are all your movie lists:</h4>
 <% else %>
   <h1>Welcome to <%=@user.username%>'s Movie Lister Page</h1>
