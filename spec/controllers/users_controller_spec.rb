@@ -149,9 +149,9 @@ describe 'UsersController' do
         visit "/users/#{@user.id}"
 
         expect(page.current_path).to eq("/users/1")
-        expect(page.body).to include(@lists.map(&:title)[0])
-        expect(page.body).to include(@lists.map(&:title)[1])
-        expect(page.body).to include(@lists.map(&:title)[2])
+        expect(page).to have_link(@lists.map(&:title)[0], href: "/lists/#{@lists.map(&:id)[0]}")
+        expect(page).to have_link(@lists.map(&:title)[1], href: "/lists/#{@lists.map(&:id)[1]}")
+        expect(page).to have_link(@lists.map(&:title)[2], href: "/lists/#{@lists.map(&:id)[2]}")
       end
 
       it "displays user specific content if user's own page" do
